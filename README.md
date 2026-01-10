@@ -1,39 +1,83 @@
-# 舞姫 感想サイト - 本番用ファイル
+# Library - Book Reviews
 
-## ファイル構成
+古典文学の読書感想サイト。時を越えて読み継がれる名作たちへの感想を綴ります。
 
-```
-maihime-production/
-├── index.html          # メインHTML（CDN削除済み）
-├── input.css           # Tailwind CSS入力ファイル
-├── tailwind.config.js  # Tailwind設定ファイル
-├── output.css          # ビルド後に生成される（要ビルド）
-└── README.md           # このファイル
-```
+## 収録作品
 
-## セットアップ & ビルド方法
+| 作品 | 著者 | ステータス |
+|------|------|----------|
+| 舞姫 | 森鷗外 | 実装済み |
+| 神曲 | ダンテ | Coming Soon |
+| Faust | ゲーテ | Coming Soon |
+| 人間失格 | 太宰治 | Coming Soon |
 
-### 1. 依存関係のインストール
+## 技術スタック
+
+- React 18 + TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Cloudflare Pages
+
+## セットアップ
 
 ```bash
+# 依存関係のインストール
 npm install
-```
 
-### 2. CSSのビルド（本番用）
-
-```bash
-npm run build
-```
-
-### 3. 開発時（ウォッチモード）
-
-```bash
+# 開発サーバー起動
 npm run dev
+
+# 本番ビルド
+npm run build
+
+# ビルド結果のプレビュー
+npm run preview
+```
+
+## デプロイ
+
+```bash
+npx wrangler pages deploy dist
+```
+
+## プロジェクト構成
+
+```
+book-city/
+├── src/
+│   ├── main.tsx              # エントリーポイント
+│   ├── App.tsx               # ルーティング
+│   ├── index.css             # Tailwind + カスタムスタイル
+│   ├── components/           # 共通コンポーネント
+│   │   ├── BookItem.tsx      # 本リストアイテム
+│   │   ├── CharacterCard.tsx # キャラカード（感情ゲージ付き）
+│   │   ├── GaugeBar.tsx      # ゲージバー
+│   │   ├── Modal.tsx         # 汎用モーダル
+│   │   ├── BackToTop.tsx     # トップへ戻るボタン
+│   │   └── ScrollToTop.tsx   # ページ遷移時スクロールリセット
+│   ├── pages/                # ページコンポーネント
+│   │   ├── Library.tsx       # トップページ（本一覧）
+│   │   ├── Maihime.tsx       # 舞姫感想ページ
+│   │   └── ComingSoon.tsx    # 未実装ページ
+│   └── data/                 # データファイル
+│       ├── books.ts          # 本データ
+│       ├── characters.ts     # キャラクターデータ
+│       └── story.ts          # 現代語訳テキスト
+├── public/
+│   ├── favicon.webp          # ファビコン
+│   └── images/               # 画像ファイル
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+└── wrangler.jsonc            # Cloudflare Pages設定
 ```
 
 ## 使用フォント
 
-Google Fontsから以下のフォントを読み込んでいます：
+Google Fontsから読み込み：
 - Shippori Mincho（しっぽり明朝）
 - Noto Serif JP
 
