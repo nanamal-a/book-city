@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./dist/**/*.html'],
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
@@ -14,7 +14,20 @@ module.exports = {
         'anger': '#c41e3a',
         'sorrow': '#1e3a5f',
         'gold': '#b8860b',
-      }
+      },
+      animation: {
+        'fadeInUp': 'fadeInUp 0.8s ease-out forwards',
+        'gauge': 'gaugeGrow 1.5s ease-out forwards',
+      },
+      keyframes: {
+        fadeInUp: {
+          'from': { opacity: '0', transform: 'translateY(30px)' },
+          'to': { opacity: '1', transform: 'translateY(0)' },
+        },
+        gaugeGrow: {
+          'from': { width: '0' },
+        },
+      },
     }
   },
   plugins: [],
