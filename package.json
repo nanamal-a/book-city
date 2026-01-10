@@ -1,0 +1,21 @@
+{
+  "name": "maihime-review",
+  "version": "1.0.0",
+  "description": "森鷗外「舞姫」感想・考察サイト",
+  "scripts": {
+    "build": "tailwindcss -i ./input.css -o ./output.css --minify",
+    "watch": "tailwindcss -i ./input.css -o ./output.css --watch",
+    "dev": "tailwindcss -i ./input.css -o ./output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "keywords": [
+    "舞姫",
+    "森鷗外",
+    "文学",
+    "感想"
+  ],
+  "author": "",
+  "license": "MIT"
+}
