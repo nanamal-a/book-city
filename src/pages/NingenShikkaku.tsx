@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { BackToTop } from '../components'
+import { ningenShikkakuStoryData } from '../data/ningenShikkakuStory'
 
 export function NingenShikkaku() {
+  // Get preview from first chapter (first 400 characters)
+  const previewText = ningenShikkakuStoryData.chapters[0]?.content.slice(0, 400) + '...'
   return (
     <div className="bg-white text-gray-900 font-mincho">
       {/* Header */}
@@ -209,6 +212,33 @@ export function NingenShikkaku() {
           </div>
         </section>
       </main>
+
+      {/* Modern Translation Preview */}
+      <section className="py-24 px-6 bg-gray-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-sm font-gothic tracking-widest mb-8 text-center text-ningen-red">
+            現代語訳
+          </h2>
+
+          <div className="bg-white p-8 md:p-12 border border-gray-200 shadow-sm">
+            <h3 className="font-bold text-xl mb-6 text-gray-900">
+              {ningenShikkakuStoryData.chapters[0]?.title}
+            </h3>
+            <div className="text-gray-700 leading-loose font-gothic text-lg mb-8">
+              <p>{previewText}</p>
+            </div>
+
+            <div className="text-center pt-6 border-t border-gray-200">
+              <Link
+                to="/ningen-shikkaku/story"
+                className="inline-block px-8 py-3 bg-gray-900 text-white font-gothic hover:bg-gray-800 transition-colors"
+              >
+                全文を読む
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="py-20 text-center bg-gray-900">

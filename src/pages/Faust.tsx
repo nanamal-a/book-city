@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BackToTop } from '../components'
+import { faustStoryData } from '../data/faustStory'
 
 interface EmotionBarProps {
   label: string
@@ -46,6 +47,9 @@ function CharacterCard({ initial, name, nameJa, description, borderColor }: Char
 }
 
 export function Faust() {
+  // Get preview from first chapter (first 400 characters)
+  const previewText = faustStoryData.chapters[0]?.content.slice(0, 400) + '...'
+
   const emotions = [
     { label: '畏怖', labelEn: 'Awe', percent: 95 },
     { label: '知的興奮', labelEn: 'Intellectual Thrill', percent: 90 },
@@ -270,6 +274,34 @@ export function Faust() {
             <p className="font-serif-jp text-gray-500 text-sm">
               ※ 森鷗外訳、相良守峯訳、手塚富雄訳など複数の訳で読み比べることを推奨
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Modern Translation Preview */}
+      <section className="py-24 px-4 bg-gradient-to-b from-transparent via-crimson-900/5 to-transparent">
+        <div className="max-w-3xl mx-auto">
+          <h3 className="font-cinzel text-3xl md:text-4xl text-faust-gold-300 text-center mb-4">
+            TRANSLATION
+          </h3>
+          <p className="text-center text-gray-500 mb-12 font-cormorant text-lg">現代語訳</p>
+
+          <div className="bg-gradient-to-b from-crimson-900/20 to-crimson-900/10 border border-crimson-500/20 p-8 md:p-12 rounded-sm">
+            <h4 className="font-cinzel text-xl text-faust-gold-300 mb-6">
+              {faustStoryData.chapters[0]?.title}
+            </h4>
+            <div className="font-serif-jp text-gray-300 leading-loose text-lg mb-8">
+              <p>{previewText}</p>
+            </div>
+
+            <div className="text-center pt-6 border-t border-crimson-500/20">
+              <Link
+                to="/faust/story"
+                className="inline-block px-8 py-3 border border-faust-gold-300 text-faust-gold-300 font-cormorant tracking-wider hover:bg-faust-gold-300/10 transition-colors"
+              >
+                全文を読む
+              </Link>
+            </div>
           </div>
         </div>
       </section>

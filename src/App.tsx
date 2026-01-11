@@ -1,6 +1,17 @@
 import { Routes, Route } from 'react-router-dom'
 import { ScrollToTop } from './components'
-import { Library, Maihime, ComingSoon, NingenShikkaku, Faust, DivinaCommedia } from './pages'
+import {
+  Library,
+  Maihime,
+  ComingSoon,
+  NingenShikkaku,
+  Faust,
+  DivinaCommedia,
+  NingenStoryPage,
+  FaustStoryPage,
+  DivinaStoryPage,
+  MaihimeStoryPage,
+} from './pages'
 
 function App() {
   return (
@@ -9,9 +20,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Library />} />
         <Route path="/maihime" element={<Maihime />} />
-        <Route path="/ningen" element={<NingenShikkaku />} />
+        <Route path="/maihime/story" element={<MaihimeStoryPage />} />
+        <Route path="/ningen-shikkaku" element={<NingenShikkaku />} />
+        <Route path="/ningen-shikkaku/story" element={<NingenStoryPage />} />
         <Route path="/faust" element={<Faust />} />
-        <Route path="/divina" element={<DivinaCommedia />} />
+        <Route path="/faust/story" element={<FaustStoryPage />} />
+        <Route path="/divina-commedia" element={<DivinaCommedia />} />
+        <Route path="/divina-commedia/story" element={<DivinaStoryPage />} />
         <Route path="/:bookId" element={<ComingSoon />} />
       </Routes>
     </>

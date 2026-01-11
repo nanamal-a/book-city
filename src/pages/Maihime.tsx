@@ -1,13 +1,10 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CharacterCard, BackToTop } from '../components'
 import { characters } from '../data/characters'
-import { storyFull, getStoryPreview } from '../data/story'
+import { getStoryPreview } from '../data/story'
 
 export function Maihime() {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const storyContent = isExpanded ? storyFull : getStoryPreview()
+  const storyContent = getStoryPreview()
 
   return (
     <div className="min-h-screen font-serif-jp text-ink paper-texture">
@@ -164,12 +161,12 @@ export function Maihime() {
           </div>
 
           <div className="mt-8 pt-8 border-t border-ink/10 text-center">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="px-6 py-3 bg-ink text-paper rounded-full font-mincho hover:bg-ink/80 transition-colors"
+            <Link
+              to="/maihime/story"
+              className="inline-block px-8 py-3 bg-ink text-paper font-mincho hover:bg-ink/80 transition-colors"
             >
-              {isExpanded ? '折りたたむ' : '全文を表示'}
-            </button>
+              全文を読む
+            </Link>
           </div>
         </div>
       </section>

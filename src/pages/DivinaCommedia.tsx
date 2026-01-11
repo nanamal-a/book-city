@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BackToTop } from '../components'
+import { divinaCommediaStoryData } from '../data/divinaCommediaStory'
 
 export function DivinaCommedia() {
+  // Get preview from first chapter (first 400 characters)
+  const previewText = divinaCommediaStoryData.chapters[0]?.content.slice(0, 400) + '...'
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
@@ -316,6 +319,32 @@ export function DivinaCommedia() {
                 「星々を再び見ることができた」<br />
                 <span className="text-base not-italic">— 地獄篇 最終行</span>
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modern Translation Preview */}
+      <section className="py-24 px-6 bg-parchment relative">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-center font-cormorant text-ink/60 tracking-[0.2em] uppercase text-sm mb-6">現代語訳</p>
+          <h2 className="font-cormorant text-4xl md:text-5xl text-center mb-12 text-ink">H.F.ケアリー英訳より</h2>
+
+          <div className="bg-white/80 backdrop-blur border border-ink/10 p-8 md:p-12 shadow-lg">
+            <h3 className="font-cormorant text-xl text-ink mb-6">
+              {divinaCommediaStoryData.chapters[0]?.title}
+            </h3>
+            <div className="text-ink/80 leading-loose text-lg mb-8">
+              <p>{previewText}</p>
+            </div>
+
+            <div className="text-center pt-6 border-t border-ink/10">
+              <Link
+                to="/divina-commedia/story"
+                className="inline-block px-8 py-3 border border-ink text-ink font-cormorant tracking-wider hover:bg-ink hover:text-parchment transition-colors"
+              >
+                全文を読む
+              </Link>
             </div>
           </div>
         </div>

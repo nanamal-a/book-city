@@ -12,13 +12,13 @@ export interface Book {
 
 export const books: Book[] = [
   {
-    id: 'ningen',
+    id: 'ningenShikkaku',
     number: '01',
     title: '人間失格',
     author: '太宰治',
     year: '1948',
     description: '人間の弱さと、それでも生きること',
-    path: '/ningen',
+    path: '/ningen-shikkaku',
     implemented: true,
   },
   {
@@ -32,14 +32,14 @@ export const books: Book[] = [
     implemented: true,
   },
   {
-    id: 'divina',
+    id: 'divinaCommedia',
     number: '03',
     title: '神曲',
     subtitle: 'La Divina Commedia',
     author: 'Dante',
     year: '1320',
     description: '地獄から天国へ、魂の旅路',
-    path: '/divina',
+    path: '/divina-commedia',
     implemented: true,
   },
   {
