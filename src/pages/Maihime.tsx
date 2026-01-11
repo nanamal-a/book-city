@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CharacterCard, BackToTop } from '../components'
 import { characters } from '../data/characters'
@@ -6,14 +6,13 @@ import { storyFull, getStoryPreview } from '../data/story'
 
 export function Maihime() {
   const [isExpanded, setIsExpanded] = useState(false)
-  const storyRef = useRef<HTMLDivElement>(null)
 
   const storyContent = isExpanded ? storyFull : getStoryPreview()
 
   return (
     <div className="min-h-screen font-serif-jp text-ink paper-texture">
       {/* Header */}
-      <header className="relative overflow-hidden">
+      <header className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-ink/90 to-ink/70" />
         <div className="absolute inset-0 opacity-20">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -23,7 +22,7 @@ export function Maihime() {
             <rect width="100%" height="100%" fill="url(#sakura)" />
           </svg>
         </div>
-        <div className="relative container mx-auto px-6 py-20 lg:py-32">
+        <div className="relative container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="text-center lg:text-left">
               <p className="text-gold font-mincho tracking-[0.5em] text-sm mb-4 animate-fadeInUp opacity-0" style={{ animationDelay: '0.2s' }}>
@@ -51,24 +50,42 @@ export function Maihime() {
         </Link>
       </div>
 
-      {/* Character Gauge Section */}
+      {/* Impressive Quote Section */}
       <section className="container mx-auto px-6 py-16 lg:py-24">
-        <div className="text-center mb-16">
-          <h2 className="font-mincho text-3xl lg:text-4xl text-amber-900 font-semibold mb-4">
-            登場人物への感情
-          </h2>
-          <p className="text-stone-700 max-w-2xl mx-auto text-lg font-medium">
-            物語を読み終えて、各登場人物に抱いた感情を数値化しました。
-            <br />
-            <span className="text-red-600 font-bold">怒り😡</span>と
-            <span className="text-indigo-700 font-bold">哀しみ😢</span>は表裏一体のものとして。
-          </p>
-        </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="font-mincho text-3xl lg:text-4xl text-amber-900 font-semibold mb-4">
+              印象的なセリフ
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {characters.map((character) => (
-            <CharacterCard key={character.id} character={character} />
-          ))}
+          <div className="pl-6 lg:pl-8 mb-10 border-l-4 border-gold">
+            <blockquote className="text-2xl lg:text-3xl leading-relaxed mb-4 font-mincho text-ink">
+              「嗚呼、相沢謙吉が如き良友は世にまた得がたかるべし。
+              <br />
+              されど我脳裡に一点の<span className="text-anger">彼を憎むこゝろ</span>今日までも残れりけり。」
+            </blockquote>
+            <cite className="text-stone-600 text-sm">— 結末より</cite>
+          </div>
+
+          <div className="space-y-6 text-lg leading-loose text-stone-700">
+            <p>
+              この結末の一文に、豊太郎という人間のすべてが凝縮されている。
+            </p>
+            <p>
+              相沢を「良友」と呼びながら「憎む」という矛盾。それは、自分の弱さと決断力の欠如を、最後まで他者に転嫁しようとする豊太郎の本質を露わにしている。
+            </p>
+          </div>
+
+          <div className="mt-12 p-6 lg:p-8 bg-ink/5 rounded-xl border border-gold/20">
+            <p className="text-xl text-center leading-relaxed text-amber-900 font-mincho">
+              エリスを精神的に殺したのは相沢ではない。
+              <br />
+              エリスとの約束を反故にし、大臣の前で
+              <br />
+              「承りました」と答えた豊太郎自身である。
+            </p>
+          </div>
         </div>
       </section>
 
@@ -79,18 +96,6 @@ export function Maihime() {
             <h2 className="font-mincho text-3xl lg:text-4xl mb-12 text-center">総評</h2>
 
             <div className="space-y-8 text-paper/80 leading-relaxed">
-              <p className="text-xl font-mincho text-gold text-center mb-8">
-                「嗚呼、相沢謙吉が如き良友は世にまた得がたかるべし。
-                <br />
-                されど我脳裡に一点の彼を憎むこゝろ今日までも残れりけり。」
-              </p>
-
-              <p>この結末の一文に、豊太郎という人間のすべてが凝縮されている。</p>
-
-              <p>
-                相沢を「良友」と呼びながら「憎む」という矛盾。それは、自分の弱さと決断力の欠如を、最後まで他者に転嫁しようとする豊太郎の本質を露わにしている。エリスを精神的に殺したのは相沢ではない。エリスとの約束を反故にし、大臣の前で「承りました」と答えた豊太郎自身である。
-              </p>
-
               <div className="bg-paper/10 rounded-xl p-6 my-8">
                 <h3 className="font-mincho text-xl text-gold mb-4">怒りの90%は豊太郎へ</h3>
                 <p>
@@ -119,8 +124,29 @@ export function Maihime() {
         </div>
       </section>
 
+      {/* Character Gauge Section */}
+      <section className="container mx-auto px-6 py-16 lg:py-24">
+        <div className="text-center mb-16">
+          <h2 className="font-mincho text-3xl lg:text-4xl text-amber-900 font-semibold mb-4">
+            登場人物への感情
+          </h2>
+          <p className="text-stone-700 max-w-2xl mx-auto text-lg font-medium">
+            物語を読み終えて、各登場人物に抱いた感情を数値化しました。
+            <br />
+            <span className="text-red-600 font-bold">怒り😡</span>と
+            <span className="text-indigo-700 font-bold">哀しみ😢</span>は表裏一体のものとして。
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {characters.map((character) => (
+            <CharacterCard key={character.id} character={character} />
+          ))}
+        </div>
+      </section>
+
       {/* Modern Translation Section */}
-      <section className="container mx-auto px-6 py-16 lg:py-24" ref={storyRef}>
+      <section className="container mx-auto px-6 py-16 lg:py-24">
         <div className="text-center mb-12">
           <h2 className="font-mincho text-3xl lg:text-4xl text-amber-900 font-semibold mb-4">
             現代語訳
@@ -167,7 +193,7 @@ export function Maihime() {
         </div>
       </footer>
 
-      <BackToTop targetRef={storyRef} />
+      <BackToTop />
     </div>
   )
 }
