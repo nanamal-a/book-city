@@ -30,7 +30,7 @@ export const books: Book[] = [
     year: '1320',
     description: '地獄から天国へ、魂の旅路',
     path: '/divina',
-    implemented: false,
+    implemented: true,
   },
   {
     id: 'faust',
@@ -40,7 +40,7 @@ export const books: Book[] = [
     year: '1808',
     description: '知識を求め、悪魔と契約した男',
     path: '/faust',
-    implemented: false,
+    implemented: true,
   },
   {
     id: 'ningen',
@@ -50,6 +50,6 @@ export const books: Book[] = [
     year: '1948',
     description: '人間の弱さと、それでも生きること',
     path: '/ningen',
-    implemented: false,
+    implemented: true,
   },
 ]

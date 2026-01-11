@@ -1,3 +1,6 @@
 export { Library } from './Library'
 export { Maihime } from './Maihime'
 export { ComingSoon } from './ComingSoon'
+export { NingenShikkaku } from './NingenShikkaku'
+export { Faust } from './Faust'
+export { DivinaCommedia } from './DivinaCommedia'

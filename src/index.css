@@ -48,3 +48,80 @@ body {
   background: #b8860b;
   border-radius: 4px;
 }
+
+/* ===== 人間失格 Styles ===== */
+.ningen-quote-highlight {
+  background-color: #fce4e4;
+  padding: 2px 6px;
+}
+
+/* ===== ファウスト Styles ===== */
+.faust-hero-bg {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 40%);
+}
+
+.faust-text-shadow-glow {
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(212, 175, 55, 0.3);
+}
+
+.faust-card-glow:hover {
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.3), inset 0 0 30px rgba(212, 175, 55, 0.05);
+}
+
+.faust-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.faust-pentagram-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpolygon fill='none' stroke='%23d4af37' stroke-width='0.3' opacity='0.1' points='50,5 61,40 95,40 68,60 79,95 50,75 21,95 32,60 5,40 39,40'/%3E%3C/svg%3E");
+}
+
+.faust-section-divider {
+  background: linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%);
+  height: 1px;
+}
+
+.faust-emotion-bar {
+  transition: width 1.5s ease-out;
+}
+
+/* ===== 神曲 Styles ===== */
+.divina-texture-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+}
+
+.divina-drop-cap::first-letter {
+  float: left;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  font-weight: 700;
+}
+
+.divina-ornament::before,
+.divina-ornament::after {
+  content: '❦';
+  display: inline-block;
+  margin: 0 1rem;
+  opacity: 0.6;
+}
+
+.divina-card-hover {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.divina-card-hover:hover {
+  transform: translateY(-8px);
+}

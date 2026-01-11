@@ -158,6 +158,12 @@ export function Maihime() {
             <br />
             原文は青空文庫にて公開されています。
           </p>
+          <Link
+            to="/"
+            className="inline-block mt-8 px-6 py-2 border border-gold/50 text-gold hover:bg-gold/10 transition-colors text-sm tracking-wider"
+          >
+            Library に戻る
+          </Link>
         </div>
       </footer>
 
