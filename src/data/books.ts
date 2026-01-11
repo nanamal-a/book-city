@@ -12,8 +12,18 @@ export interface Book {
 
 export const books: Book[] = [
   {
-    id: 'maihime',
+    id: 'ningen',
     number: '01',
+    title: '人間失格',
+    author: '太宰治',
+    year: '1948',
+    description: '人間の弱さと、それでも生きること',
+    path: '/ningen',
+    implemented: true,
+  },
+  {
+    id: 'maihime',
+    number: '02',
     title: '舞姫',
     author: '森鷗外',
     year: '1890',
@@ -23,7 +33,7 @@ export const books: Book[] = [
   },
   {
     id: 'divina',
-    number: '02',
+    number: '03',
     title: '神曲',
     subtitle: 'La Divina Commedia',
     author: 'Dante',
@@ -34,22 +44,12 @@ export const books: Book[] = [
   },
   {
     id: 'faust',
-    number: '03',
+    number: '04',
     title: 'Faust',
     author: 'Goethe',
     year: '1808',
     description: '知識を求め、悪魔と契約した男',
     path: '/faust',
-    implemented: true,
-  },
-  {
-    id: 'ningen',
-    number: '04',
-    title: '人間失格',
-    author: '太宰治',
-    year: '1948',
-    description: '人間の弱さと、それでも生きること',
-    path: '/ningen',
     implemented: true,
   },
 ]
