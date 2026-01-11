@@ -370,6 +370,24 @@ export function DivinaCommedia() {
             Dante Alighieri (1265-1321) — "L'amor che move il sole e l'altre stelle"
           </p>
 
+          <div className="text-xs text-white/30 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="mb-2">
+              英訳テキスト: H.F. Cary訳 "The Vision of Hell, Purgatory, and Paradise"
+            </p>
+            <p>
+              This eBook is for the use of anyone anywhere at no cost and with almost no restrictions whatsoever.
+              You may copy it, give it away or re-use it under the terms of the{' '}
+              <a
+                href="https://www.gutenberg.org/license"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-paradiso-gold/70 hover:text-paradiso-gold underline"
+              >
+                Project Gutenberg License
+              </a>.
+            </p>
+          </div>
+
           <Link
             to="/"
             className="inline-block px-6 py-2 border border-paradiso-gold/50 text-paradiso-gold hover:bg-paradiso-gold/10 transition-colors text-sm tracking-wider"
