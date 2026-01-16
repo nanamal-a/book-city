@@ -8,6 +8,11 @@ export interface Book {
   description: string
   path: string
   implemented: boolean
+  reading: {
+    title: { hiragana: string; romaji: string }
+    author: { hiragana: string; romaji: string }
+    subtitle?: { hiragana: string; romaji: string }
+  }
 }
 
 export const books: Book[] = [
@@ -20,6 +25,10 @@ export const books: Book[] = [
     description: '人間の弱さと、それでも生きること',
     path: '/ningen-shikkaku',
     implemented: true,
+    reading: {
+      title: { hiragana: 'にんげんしっかく', romaji: 'ningenshikkaku' },
+      author: { hiragana: 'だざいおさむ', romaji: 'dazaiosamu' },
+    },
   },
   {
     id: 'maihime',
@@ -30,6 +39,10 @@ export const books: Book[] = [
     description: '異国の地で出会った、切ない恋の物語',
     path: '/maihime',
     implemented: true,
+    reading: {
+      title: { hiragana: 'まいひめ', romaji: 'maihime' },
+      author: { hiragana: 'もりおうがい', romaji: 'moriougai' },
+    },
   },
   {
     id: 'divinaCommedia',
@@ -41,6 +54,11 @@ export const books: Book[] = [
     description: '地獄から天国へ、魂の旅路',
     path: '/divina-commedia',
     implemented: true,
+    reading: {
+      title: { hiragana: 'しんきょく', romaji: 'shinkyoku' },
+      author: { hiragana: 'だんて', romaji: 'dante' },
+      subtitle: { hiragana: 'らでぃびなこめでぃあ', romaji: 'ladivinacommedia' },
+    },
   },
   {
     id: 'faust',
@@ -51,5 +69,9 @@ export const books: Book[] = [
     description: '知識を求め、悪魔と契約した男',
     path: '/faust',
     implemented: true,
+    reading: {
+      title: { hiragana: 'ふぁうすと', romaji: 'faust' },
+      author: { hiragana: 'げーて', romaji: 'goethe' },
+    },
   },
 ]

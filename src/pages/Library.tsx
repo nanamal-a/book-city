@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BookItem, Modal } from '../components'
 import { books, type Book } from '../data/books'
+import { hasBookmark } from '../utils/bookmark'
 
 type SortType = 'number' | 'title' | 'year'
 type SortOrder = 'asc' | 'desc'
@@ -11,19 +12,36 @@ export function Library() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortType, setSortType] = useState<SortType>('number')
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
+  const navigate = useNavigate()
 
   const filteredAndSortedBooks = useMemo(() => {
     let result = [...books]
 
-    // Filter by search query
+    // Filter by search query (prefix match only)
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase()
-      result = result.filter(
-        (book) =>
-          book.title.toLowerCase().includes(query) ||
-          book.author.toLowerCase().includes(query) ||
-          (book.subtitle?.toLowerCase().includes(query) ?? false)
-      )
+      result = result.filter((book) => {
+        // タイトル: 漢字/ひらがな/ローマ字の先頭一致
+        const titleMatch =
+          book.title.toLowerCase().startsWith(query) ||
+          book.reading.title.hiragana.startsWith(query) ||
+          book.reading.title.romaji.startsWith(query)
+
+        // 著者: 漢字/ひらがな/ローマ字の先頭一致
+        const authorMatch =
+          book.author.toLowerCase().startsWith(query) ||
+          book.reading.author.hiragana.startsWith(query) ||
+          book.reading.author.romaji.startsWith(query)
+
+        // サブタイトル: 漢字/ひらがな/ローマ字の先頭一致
+        const subtitleMatch = book.subtitle
+          ? book.subtitle.toLowerCase().startsWith(query) ||
+            (book.reading.subtitle?.hiragana.startsWith(query) ?? false) ||
+            (book.reading.subtitle?.romaji.startsWith(query) ?? false)
+          : false
+
+        return titleMatch || authorMatch || subtitleMatch
+      })
     }
 
     // Sort
@@ -105,7 +123,20 @@ export function Library() {
           {/* Sort Controls */}
           <div className="flex items-center gap-3">
             <span className="text-amber-200/40 text-sm">並び替え:</span>
-            <div className="flex gap-2">
+
+            {/* Mobile: Dropdown */}
+            <select
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value as SortType)}
+              className="sm:hidden px-4 py-2 bg-amber-200/5 border border-amber-200/20 rounded-lg text-amber-100 text-sm focus:outline-none focus:border-amber-200/40 transition-colors"
+            >
+              <option value="number" className="bg-stone-900 text-amber-100">No順</option>
+              <option value="title" className="bg-stone-900 text-amber-100">タイトル順</option>
+              <option value="year" className="bg-stone-900 text-amber-100">年代順</option>
+            </select>
+
+            {/* Desktop: Buttons */}
+            <div className="hidden sm:flex gap-2">
               <button
                 onClick={() => setSortType('number')}
                 className={`px-4 py-2 text-sm rounded-lg border transition-all ${
@@ -137,6 +168,7 @@ export function Library() {
                 年代順
               </button>
             </div>
+
             <button
               onClick={toggleSortOrder}
               className="ml-auto flex items-center gap-1 px-3 py-2 text-sm text-amber-200/50 hover:text-amber-200/80 transition-colors"
@@ -168,6 +200,8 @@ export function Library() {
                 key={book.id}
                 book={book}
                 onClick={() => setSelectedBook(book)}
+                hasBookmark={hasBookmark(book.id)}
+                onBookmarkClick={() => navigate(`${book.path}/story`)}
               />
             ))
           ) : (

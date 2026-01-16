@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { CharacterCard, BackToTop } from '../components'
 import { characters } from '../data/characters'
-import { getStoryPreview } from '../data/story'
+import { maihimeStoryData } from '../data/maihimeStory'
 
 export function Maihime() {
-  const storyContent = getStoryPreview()
+  const previewText = maihimeStoryData.chapters[0]?.content.slice(0, 400) + '...'
 
   return (
     <div className="min-h-screen font-serif-jp text-ink paper-texture">
@@ -153,11 +153,9 @@ export function Maihime() {
 
         <div className="max-w-5xl mx-auto bg-white/90 backdrop-blur rounded-2xl shadow-xl p-8 lg:p-12 border border-gold/20">
           <div className="text-ink/80 text-sm lg:text-base leading-loose">
-            {storyContent.split('\n\n').map((paragraph, index) => (
-              <p key={index} className="mb-6 text-justify">
-                {paragraph}
-              </p>
-            ))}
+            <p className="text-justify line-clamp-6">
+              {previewText}
+            </p>
           </div>
 
           <div className="mt-8 pt-8 border-t border-ink/10 text-center">

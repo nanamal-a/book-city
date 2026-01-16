@@ -3,10 +3,17 @@ import type { Book } from '../data/books'
 interface BookItemProps {
   book: Book
   onClick: () => void
+  hasBookmark?: boolean
+  onBookmarkClick?: () => void
 }
 
-export function BookItem({ book, onClick }: BookItemProps) {
+export function BookItem({ book, onClick, hasBookmark, onBookmarkClick }: BookItemProps) {
   const { number, title, subtitle, author, year } = book
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    onBookmarkClick?.()
+  }
 
   return (
     <button
@@ -30,19 +37,42 @@ export function BookItem({ book, onClick }: BookItemProps) {
             {author} · {year}
           </p>
         </div>
-        <svg
-          className="w-5 h-5 text-amber-200/20 group-hover:text-amber-200/50 group-hover:translate-x-1 transition-all"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
+        <div className="flex items-center gap-2">
+          {hasBookmark && (
+            <span
+              onClick={handleBookmarkClick}
+              className="p-1.5 rounded-lg hover:bg-amber-200/10 transition-colors cursor-pointer"
+              title="続きを読む"
+            >
+              <svg
+                className="w-5 h-5 text-amber-400"
+                fill="currentColor"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                />
+              </svg>
+            </span>
+          )}
+          <svg
+            className="w-5 h-5 text-amber-200/20 group-hover:text-amber-200/50 group-hover:translate-x-1 transition-all"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </div>
       </div>
     </button>
   )

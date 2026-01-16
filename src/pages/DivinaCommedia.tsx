@@ -335,7 +335,7 @@ export function DivinaCommedia() {
               {divinaCommediaStoryData.chapters[0]?.title}
             </h3>
             <div className="text-ink/80 leading-loose text-lg mb-8">
-              <p>{previewText}</p>
+              <p className="line-clamp-6">{previewText}</p>
             </div>
 
             <div className="text-center pt-6 border-t border-ink/10">

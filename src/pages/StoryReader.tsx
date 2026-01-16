@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { StoryData, Section } from '../data/storyTypes'
+import { getBookmark, saveBookmark, deleteBookmark, type Bookmark } from '../utils/bookmark'
 
 interface StoryReaderProps {
   storyData: StoryData
@@ -92,9 +93,47 @@ function CollapsibleSection({
 export function StoryReader({ storyData }: StoryReaderProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [showExitModal, setShowExitModal] = useState(false)
+  const [showBookmarkModal, setShowBookmarkModal] = useState(false)
+  const [bookmarkSaved, setBookmarkSaved] = useState(false)
+  const [pendingBookmark, setPendingBookmark] = useState<Bookmark | null>(null)
   const [activeChapter, setActiveChapter] = useState<string>(storyData.chapters[0]?.id || '')
   const chapterRefs = useRef<Record<string, HTMLElement | null>>({})
   const navigate = useNavigate()
+
+  // Check for existing bookmark on mount
+  useEffect(() => {
+    const bookmark = getBookmark(storyData.bookId)
+    if (bookmark && bookmark.scrollY > 100) {
+      setPendingBookmark(bookmark)
+      setShowBookmarkModal(true)
+    }
+  }, [storyData.bookId])
+
+  // Restore bookmark position
+  const restoreBookmark = useCallback(() => {
+    if (pendingBookmark) {
+      window.scrollTo({ top: pendingBookmark.scrollY, behavior: 'smooth' })
+    }
+    setShowBookmarkModal(false)
+    setPendingBookmark(null)
+  }, [pendingBookmark])
+
+  // Save current position as bookmark
+  const handleSaveBookmark = useCallback(() => {
+    saveBookmark(storyData.bookId, {
+      chapterId: activeChapter,
+      scrollY: window.scrollY
+    })
+    setBookmarkSaved(true)
+    setTimeout(() => setBookmarkSaved(false), 2000)
+  }, [storyData.bookId, activeChapter])
+
+  // Delete bookmark
+  const handleDeleteBookmark = useCallback(() => {
+    deleteBookmark(storyData.bookId)
+    setShowBookmarkModal(false)
+    setPendingBookmark(null)
+  }, [storyData.bookId])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -186,15 +225,31 @@ export function StoryReader({ storyData }: StoryReaderProps) {
       <header className="fixed top-0 left-0 right-0 bg-paper/95 backdrop-blur border-b border-ink/10 z-40">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="font-mincho text-lg truncate">{storyData.bookTitle}</h1>
-          <button
-            onClick={() => setIsSidebarOpen(true)}
-            className="p-2 hover:bg-ink/5 rounded-lg transition-colors"
-            aria-label="目次を開く"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handleSaveBookmark}
+              className="p-2 hover:bg-ink/5 rounded-lg transition-colors relative"
+              aria-label="しおりを挟む"
+            >
+              <svg className="w-6 h-6" fill={bookmarkSaved ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              {bookmarkSaved && (
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gold whitespace-nowrap">
+                  保存しました
+                </span>
+              )}
+            </button>
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="p-2 hover:bg-ink/5 rounded-lg transition-colors"
+              aria-label="目次を開く"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -261,12 +316,18 @@ export function StoryReader({ storyData }: StoryReaderProps) {
             )}
           </nav>
 
-          <div className="p-4 border-t border-ink/10">
+          <div className="p-4 border-t border-ink/10 space-y-2">
             <button
               onClick={handleExit}
               className="w-full px-4 py-3 border border-ink/20 rounded-lg text-ink/70 hover:bg-ink/5 transition-colors text-sm"
             >
               感想ページに戻る
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="w-full px-4 py-3 border border-ink/20 rounded-lg text-ink/70 hover:bg-ink/5 transition-colors text-sm"
+            >
+              Libraryに戻る
             </button>
           </div>
         </div>
@@ -336,6 +397,50 @@ export function StoryReader({ storyData }: StoryReaderProps) {
                   戻る
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bookmark Restoration Modal */}
+      {showBookmarkModal && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center"
+          onClick={() => setShowBookmarkModal(false)}
+        >
+          <div
+            className="bg-white rounded-2xl p-8 max-w-md w-11/12 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gold" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+              </div>
+              <h3 className="font-mincho text-xl text-ink mb-6">
+                続きから読みますか？
+              </h3>
+              <div className="flex gap-4 mb-4">
+                <button
+                  onClick={() => setShowBookmarkModal(false)}
+                  className="flex-1 px-6 py-3 border border-ink/20 text-ink rounded-full font-medium hover:bg-ink/5 transition-colors"
+                >
+                  最初から
+                </button>
+                <button
+                  onClick={restoreBookmark}
+                  className="flex-1 px-6 py-3 bg-gold text-white rounded-full font-medium hover:bg-amber-600 transition-colors"
+                >
+                  続きから
+                </button>
+              </div>
+              <button
+                onClick={handleDeleteBookmark}
+                className="text-sm text-ink/40 hover:text-ink/60 transition-colors"
+              >
+                しおりを削除
+              </button>
             </div>
           </div>
         </div>

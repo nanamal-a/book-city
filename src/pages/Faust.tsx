@@ -291,7 +291,7 @@ export function Faust() {
               {faustStoryData.chapters[0]?.title}
             </h4>
             <div className="font-serif-jp text-gray-300 leading-loose text-lg mb-8">
-              <p>{previewText}</p>
+              <p className="line-clamp-6">{previewText}</p>
             </div>
 
             <div className="text-center pt-6 border-t border-crimson-500/20">

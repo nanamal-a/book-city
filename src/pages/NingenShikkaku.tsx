@@ -225,7 +225,7 @@ export function NingenShikkaku() {
               {ningenShikkakuStoryData.chapters[0]?.title}
             </h3>
             <div className="text-gray-700 leading-loose font-gothic text-lg mb-8">
-              <p>{previewText}</p>
+              <p className="line-clamp-6">{previewText}</p>
             </div>
 
             <div className="text-center pt-6 border-t border-gray-200">
