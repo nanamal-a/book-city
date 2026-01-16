@@ -128,7 +128,7 @@ export function Library() {
             <select
               value={sortType}
               onChange={(e) => setSortType(e.target.value as SortType)}
-              className="sm:hidden px-4 py-2 bg-amber-200/5 border border-amber-200/20 rounded-lg text-amber-100 text-sm focus:outline-none focus:border-amber-200/40 transition-colors"
+              className="sm:hidden h-11 px-4 bg-amber-200/5 border border-amber-200/20 rounded-lg text-amber-100 text-sm focus:outline-none focus:border-amber-200/40 transition-colors"
             >
               <option value="number" className="bg-stone-900 text-amber-100">No順</option>
               <option value="title" className="bg-stone-900 text-amber-100">タイトル順</option>
