@@ -1,7 +1,8 @@
 {
-  "name": "book-city", // 好きなプロジェクト名
+  "name": "book-city",
   "compatibility_date": "2026-01-10",
   "assets": {
-    "directory": "./dist" // 👈 ビルドされたファイルが入っているフォルダを指定
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
   }
 }
